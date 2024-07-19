@@ -54,12 +54,13 @@ def index(request):
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    if id >= len(posts):
-        raise Http404('что то пошло не так')
-    for post in posts:
-        if post['id'] == id:
-            context = {'post': post}
-    return render(request, template_name, context)
+    dict_post = {post['id']: {key: value for key, value in post.items()}
+                 for post in posts}
+    if id in dict_post.keys():
+        context = {'post': dict_post[id]}
+        return render(request, template_name, context)
+    else:
+        raise Http404('Такого поста еще не существует')
 
 
 def category_posts(request, category_slug):
