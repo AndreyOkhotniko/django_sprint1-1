@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+
 posts = [
     {
         'id': 0,
@@ -62,4 +64,3 @@ def category_posts(request, category_slug):
     }
     return render(request, template_name, context)
 
-# Create your views here.
